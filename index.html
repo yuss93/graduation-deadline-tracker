@@ -15,7 +15,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 60px 20px;
+    padding: 50px 20px;
     position: relative;
     overflow-x: hidden;
   }
@@ -36,16 +36,16 @@
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 600px;
+    max-width: 640px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 18px;
   }
 
   .header {
     border-left: 6px solid #38bdf8;
     padding-left: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
   }
 
   .header h1 {
@@ -64,14 +64,79 @@
     letter-spacing: 0.5px;
   }
 
+  /* Add Task Control Bar */
+  .add-bar {
+    display: flex;
+    gap: 10px;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    padding: 12px;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(12px);
+  }
+
+  .add-bar input[type="text"] {
+    flex: 1;
+    background: rgba(9, 13, 22, 0.7);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: #f8fafc;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .add-bar input[type="text"]:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+  }
+
+  .add-bar input[type="date"] {
+    background: rgba(9, 13, 22, 0.7);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 12px;
+    padding: 10px 12px;
+    color: #cbd5e1;
+    font-size: 14px;
+    outline: none;
+    color-scheme: dark;
+  }
+
+  .add-bar button {
+    background: #38bdf8;
+    color: #090d16;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+
+  .add-bar button:hover {
+    background: #7dd3fc;
+    transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(56, 189, 248, 0.65);
+  }
+
+  .milestone-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
   .card {
     background: rgba(15, 23, 42, 0.82);
     border: 1px solid rgba(56, 189, 248, 0.28);
     border-radius: 20px;
-    padding: 22px 24px;
+    padding: 20px 22px;
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 18px;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(12px);
     cursor: pointer;
@@ -82,7 +147,7 @@
   }
 
   .card:hover {
-    transform: translateY(-4px) scale(1.01);
+    transform: translateY(-3px) scale(1.008);
     background: rgba(22, 34, 58, 0.92);
     border-color: #38bdf8;
     box-shadow: 0 18px 36px rgba(0, 0, 0, 0.65),
@@ -93,12 +158,6 @@
   .card:hover .status-ring {
     transform: scale(1.12);
     box-shadow: 0 0 18px rgba(56, 189, 248, 0.85);
-  }
-
-  .card:hover .badge {
-    background: #38bdf8;
-    color: #090d16;
-    box-shadow: 0 0 14px rgba(56, 189, 248, 0.6);
   }
 
   .card.completed {
@@ -113,13 +172,13 @@
   }
 
   .status-ring {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     border: 4px solid #38bdf8;
     box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
     flex-shrink: 0;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    transition: all 0.25s ease;
   }
 
   .card.completed .status-ring {
@@ -133,32 +192,20 @@
     color: #94a3b8;
   }
 
-  .card.completed .badge {
-    border-color: #22c55e;
-    color: #22c55e;
-    background: rgba(34, 197, 94, 0.12);
-  }
-
-  .card.completed:hover .badge {
-    background: #22c55e;
-    color: #090d16;
-    box-shadow: 0 0 14px rgba(34, 197, 94, 0.6);
-  }
-
   .card-content {
     flex: 1;
   }
 
   .card-title {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 700;
     color: #f1f5f9;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
     transition: color 0.25s ease;
   }
 
   .card-sub {
-    font-size: 14px;
+    font-size: 13px;
     color: #94a3b8;
     margin-top: 4px;
   }
@@ -167,22 +214,55 @@
     background: rgba(56, 189, 248, 0.12);
     border: 1px solid #38bdf8;
     color: #38bdf8;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
-    padding: 8px 14px;
+    padding: 7px 12px;
     border-radius: 10px;
     letter-spacing: 0.5px;
+    white-space: nowrap;
     transition: all 0.25s ease;
+  }
+
+  .card.completed .badge {
+    border-color: #22c55e;
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.12);
+  }
+
+  .delete-btn {
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    color: #f87171;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0.65;
+    transition: all 0.2s ease;
+  }
+
+  .delete-btn:hover {
+    opacity: 1;
+    background: #ef4444;
+    color: #fff;
+    border-color: #ef4444;
+    box-shadow: 0 0 14px rgba(239, 68, 68, 0.6);
+    transform: scale(1.08);
   }
 
   .countdown-box {
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.88));
     border: 2px solid #38bdf8;
     border-radius: 24px;
-    padding: 32px;
+    padding: 30px;
     text-align: center;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.25);
-    margin-top: 10px;
+    margin-top: 6px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
@@ -201,18 +281,33 @@
   }
 
   .countdown-target {
-    font-size: 15px;
+    font-size: 14px;
     color: #cbd5e1;
     margin-top: 8px;
     letter-spacing: 1px;
     font-weight: 600;
   }
 
-  .hint {
-    text-align: center;
+  .footer-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 13px;
     color: #64748b;
-    margin-top: -6px;
+    padding: 0 6px;
+  }
+
+  .reset-link {
+    color: #38bdf8;
+    cursor: pointer;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    font-size: 13px;
+  }
+
+  @media (max-width: 560px) {
+    .add-bar { flex-direction: column; }
   }
 </style>
 </head>
@@ -223,61 +318,18 @@
       <p>CCNY B.E. COMPUTER ENGINEERING • CLASS OF 2027</p>
     </div>
 
-    <div class="card" onclick="toggleMilestone(this)">
-      <div class="status-ring"></div>
-      <div class="card-content">
-        <div class="card-title">FINALIZE POST-GRAD PLANS</div>
-        <div class="card-sub">Target Window: February 2027</div>
-      </div>
-      <div class="badge" data-default="T-90D">T-90D</div>
-    </div>
+    <form class="add-bar" onsubmit="addTask(event)">
+      <input type="text" id="taskInput" placeholder="Add new milestone (e.g., Senior Design Demo)..." required>
+      <input type="date" id="dateInput" value="2027-04-15" required>
+      <button type="submit">+ ADD</button>
+    </form>
 
-    <div class="card" onclick="toggleMilestone(this)">
-      <div class="status-ring"></div>
-      <div class="card-content">
-        <div class="card-title">SECURE CAP & GOWN</div>
-        <div class="card-sub">Target Window: March 2027</div>
-      </div>
-      <div class="badge" data-default="T-60D">T-60D</div>
-    </div>
+    <div class="milestone-list" id="milestoneList"></div>
 
-    <div class="card" onclick="toggleMilestone(this)">
-      <div class="status-ring"></div>
-      <div class="card-content">
-        <div class="card-title">SUBMIT DEGREE APPLICATION</div>
-        <div class="card-sub">Target Window: April 2027</div>
-      </div>
-      <div class="badge" data-default="T-45D">T-45D</div>
+    <div class="footer-bar">
+      <span>Click card to toggle complete • Auto-saved locally</span>
+      <button class="reset-link" onclick="resetDefaults()">Reset Defaults</button>
     </div>
-
-    <div class="card" onclick="toggleMilestone(this)">
-      <div class="status-ring"></div>
-      <div class="card-content">
-        <div class="card-title">COMPLETE FINAL THESIS DRAFT</div>
-        <div class="card-sub">Target Window: April 2027</div>
-      </div>
-      <div class="badge" data-default="T-30D">T-30D</div>
-    </div>
-
-    <div class="card" onclick="toggleMilestone(this)">
-      <div class="status-ring"></div>
-      <div class="card-content">
-        <div class="card-title">FINAL PROJECT SUBMISSION</div>
-        <div class="card-sub">Target Window: May 2027</div>
-      </div>
-      <div class="badge" data-default="T-14D">T-14D</div>
-    </div>
-
-    <div class="card" onclick="toggleMilestone(this)">
-      <div class="status-ring"></div>
-      <div class="card-content">
-        <div class="card-title">CCNY GRADUATION CEREMONY</div>
-        <div class="card-sub">Target Window: May 22, 2027</div>
-      </div>
-      <div class="badge" data-default="T-0D">T-0D</div>
-    </div>
-
-    <div class="hint">Click any milestone card to mark it complete</div>
 
     <div class="countdown-box">
       <div class="countdown-number" id="timer">LOADING...</div>
@@ -286,16 +338,102 @@
   </div>
 
   <script>
-    function toggleMilestone(card) {
-      card.classList.toggle("completed");
-      const badge = card.querySelector(".badge");
-      badge.textContent = card.classList.contains("completed") ? "DONE ✓" : badge.dataset.default;
+    const GRAD_DATE = new Date("2027-05-22T09:00:00");
+    const STORAGE_KEY = "ccny_grad_milestones_v1";
+
+    const DEFAULT_TASKS = [
+      { id: 1, title: "FINALIZE POST-GRAD PLANS", date: "2027-02-21", completed: false },
+      { id: 2, title: "SECURE CAP & GOWN", date: "2027-03-23", completed: false },
+      { id: 3, title: "SUBMIT DEGREE APPLICATION", date: "2027-04-07", completed: false },
+      { id: 4, title: "COMPLETE FINAL THESIS DRAFT", date: "2027-04-22", completed: false },
+      { id: 5, title: "FINAL PROJECT SUBMISSION", date: "2027-05-08", completed: false },
+      { id: 6, title: "CCNY GRADUATION CEREMONY", date: "2027-05-22", completed: false }
+    ];
+
+    let tasks = JSON.parse(localStorage.getItem(STORAGE_KEY)) || DEFAULT_TASKS;
+
+    function saveTasks() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
     }
 
-    const target = new Date("2027-05-22T09:00:00").getTime();
+    function calculateTMinus(dateStr) {
+      const taskDate = new Date(dateStr + "T09:00:00");
+      const diffDays = Math.max(Math.round((GRAD_DATE - taskDate) / (1000 * 60 * 60 * 24)), 0);
+      return `T-${diffDays}D`;
+    }
+
+    function formatDisplayDate(dateStr) {
+      const d = new Date(dateStr + "T09:00:00");
+      return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    }
+
+    function renderTasks() {
+      const list = document.getElementById("milestoneList");
+      list.innerHTML = "";
+
+      tasks.forEach(task => {
+        const card = document.createElement("div");
+        card.className = `card ${task.completed ? "completed" : ""}`;
+        card.onclick = () => toggleTask(task.id);
+
+        const badgeLabel = task.completed ? "DONE ✓" : calculateTMinus(task.date);
+
+        card.innerHTML = `
+          <div class="status-ring"></div>
+          <div class="card-content">
+            <div class="card-title">${task.title}</div>
+            <div class="card-sub">Target Date: ${formatDisplayDate(task.date)}</div>
+          </div>
+          <div class="badge">${badgeLabel}</div>
+          <button class="delete-btn" title="Delete milestone" onclick="deleteTask(event, ${task.id})">✕</button>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    function addTask(e) {
+      e.preventDefault();
+      const input = document.getElementById("taskInput");
+      const dateInput = document.getElementById("dateInput");
+      const title = input.value.trim().toUpperCase();
+      if (!title) return;
+
+      tasks.push({
+        id: Date.now(),
+        title: title,
+        date: dateInput.value,
+        completed: false
+      });
+
+      // Sort chronologically by target date
+      tasks.sort((a, b) => new Date(a.date) - new Date(b.date));
+      saveTasks();
+      renderTasks();
+      input.value = "";
+    }
+
+    function toggleTask(id) {
+      tasks = tasks.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
+      saveTasks();
+      renderTasks();
+    }
+
+    function deleteTask(e, id) {
+      e.stopPropagation(); // Prevent triggering toggleTask
+      tasks = tasks.filter(t => t.id !== id);
+      saveTasks();
+      renderTasks();
+    }
+
+    function resetDefaults() {
+      tasks = [...DEFAULT_TASKS];
+      saveTasks();
+      renderTasks();
+    }
+
     function updateClock() {
       const now = Date.now();
-      const diff = Math.max(target - now, 0);
+      const diff = Math.max(GRAD_DATE.getTime() - now, 0);
       const d = Math.floor(diff / (1000 * 60 * 60 * 24));
       const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
       const m = Math.floor((diff / 1000 / 60) % 60);
@@ -303,6 +441,8 @@
       document.getElementById("timer").textContent = 
         `${String(d).padStart(3, '0')}D : ${String(h).padStart(2, '0')}H : ${String(m).padStart(2, '0')}M : ${String(s).padStart(2, '0')}S`;
     }
+
+    renderTasks();
     updateClock();
     setInterval(updateClock, 1000);
   </script>
