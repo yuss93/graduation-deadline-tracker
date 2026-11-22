@@ -29,6 +29,7 @@
       linear-gradient(to bottom, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
     background-size: 60px 60px;
     z-index: 0;
+    pointer-events: none;
   }
 
   .wrapper {
@@ -38,7 +39,7 @@
     max-width: 600px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
   }
 
   .header {
@@ -65,19 +66,50 @@
 
   .card {
     background: rgba(15, 23, 42, 0.82);
-    border: 1px solid rgba(56, 189, 248, 0.3);
+    border: 1px solid rgba(56, 189, 248, 0.28);
     border-radius: 20px;
-    padding: 24px;
+    padding: 22px 24px;
     display: flex;
     align-items: center;
     gap: 20px;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(12px);
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px) scale(1.01);
+    background: rgba(22, 34, 58, 0.92);
+    border-color: #38bdf8;
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.65),
+                0 0 22px rgba(56, 189, 248, 0.35),
+                inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  }
+
+  .card:hover .status-ring {
+    transform: scale(1.12);
+    box-shadow: 0 0 18px rgba(56, 189, 248, 0.85);
+  }
+
+  .card:hover .badge {
+    background: #38bdf8;
+    color: #090d16;
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.6);
   }
 
   .card.completed {
-    border-color: rgba(34, 197, 94, 0.35);
-    opacity: 0.75;
+    border-color: rgba(34, 197, 94, 0.4);
+    opacity: 0.78;
+  }
+
+  .card.completed:hover {
+    border-color: #22c55e;
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.65), 0 0 20px rgba(34, 197, 94, 0.35);
+    opacity: 0.95;
   }
 
   .status-ring {
@@ -87,12 +119,30 @@
     border: 4px solid #38bdf8;
     box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
     flex-shrink: 0;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
   }
 
   .card.completed .status-ring {
     border-color: #22c55e;
     background: #22c55e;
-    box-shadow: 0 0 12px rgba(34, 197, 94, 0.5);
+    box-shadow: 0 0 14px rgba(34, 197, 94, 0.6);
+  }
+
+  .card.completed .card-title {
+    text-decoration: line-through;
+    color: #94a3b8;
+  }
+
+  .card.completed .badge {
+    border-color: #22c55e;
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.12);
+  }
+
+  .card.completed:hover .badge {
+    background: #22c55e;
+    color: #090d16;
+    box-shadow: 0 0 14px rgba(34, 197, 94, 0.6);
   }
 
   .card-content {
@@ -104,6 +154,7 @@
     font-weight: 700;
     color: #f1f5f9;
     letter-spacing: 0.5px;
+    transition: color 0.25s ease;
   }
 
   .card-sub {
@@ -121,16 +172,23 @@
     padding: 8px 14px;
     border-radius: 10px;
     letter-spacing: 0.5px;
+    transition: all 0.25s ease;
   }
 
   .countdown-box {
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(30, 41, 59, 0.85));
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.88));
     border: 2px solid #38bdf8;
     border-radius: 24px;
     padding: 32px;
     text-align: center;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.25);
     margin-top: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .countdown-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 22px 48px rgba(0, 0, 0, 0.8), 0 0 38px rgba(56, 189, 248, 0.45);
   }
 
   .countdown-number {
@@ -149,6 +207,13 @@
     letter-spacing: 1px;
     font-weight: 600;
   }
+
+  .hint {
+    text-align: center;
+    font-size: 13px;
+    color: #64748b;
+    margin-top: -6px;
+  }
 </style>
 </head>
 <body>
@@ -158,59 +223,61 @@
       <p>CCNY B.E. COMPUTER ENGINEERING • CLASS OF 2027</p>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="toggleMilestone(this)">
       <div class="status-ring"></div>
       <div class="card-content">
         <div class="card-title">FINALIZE POST-GRAD PLANS</div>
-        <div class="card-sub">Target Window: May 2027</div>
+        <div class="card-sub">Target Window: February 2027</div>
       </div>
-      <div class="badge">T-90D</div>
+      <div class="badge" data-default="T-90D">T-90D</div>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="toggleMilestone(this)">
       <div class="status-ring"></div>
       <div class="card-content">
         <div class="card-title">SECURE CAP & GOWN</div>
         <div class="card-sub">Target Window: March 2027</div>
       </div>
-      <div class="badge">T-60D</div>
+      <div class="badge" data-default="T-60D">T-60D</div>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="toggleMilestone(this)">
       <div class="status-ring"></div>
       <div class="card-content">
         <div class="card-title">SUBMIT DEGREE APPLICATION</div>
         <div class="card-sub">Target Window: April 2027</div>
       </div>
-      <div class="badge">T-45D</div>
+      <div class="badge" data-default="T-45D">T-45D</div>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="toggleMilestone(this)">
       <div class="status-ring"></div>
       <div class="card-content">
         <div class="card-title">COMPLETE FINAL THESIS DRAFT</div>
         <div class="card-sub">Target Window: April 2027</div>
       </div>
-      <div class="badge">T-30D</div>
+      <div class="badge" data-default="T-30D">T-30D</div>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="toggleMilestone(this)">
       <div class="status-ring"></div>
       <div class="card-content">
         <div class="card-title">FINAL PROJECT SUBMISSION</div>
         <div class="card-sub">Target Window: May 2027</div>
       </div>
-      <div class="badge">T-14D</div>
+      <div class="badge" data-default="T-14D">T-14D</div>
     </div>
 
-    <div class="card">
+    <div class="card" onclick="toggleMilestone(this)">
       <div class="status-ring"></div>
       <div class="card-content">
         <div class="card-title">CCNY GRADUATION CEREMONY</div>
         <div class="card-sub">Target Window: May 22, 2027</div>
       </div>
-      <div class="badge">T-0D</div>
+      <div class="badge" data-default="T-0D">T-0D</div>
     </div>
+
+    <div class="hint">Click any milestone card to mark it complete</div>
 
     <div class="countdown-box">
       <div class="countdown-number" id="timer">LOADING...</div>
@@ -219,6 +286,12 @@
   </div>
 
   <script>
+    function toggleMilestone(card) {
+      card.classList.toggle("completed");
+      const badge = card.querySelector(".badge");
+      badge.textContent = card.classList.contains("completed") ? "DONE ✓" : badge.dataset.default;
+    }
+
     const target = new Date("2027-05-22T09:00:00").getTime();
     function updateClock() {
       const now = Date.now();
